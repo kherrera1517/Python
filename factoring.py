@@ -1,4 +1,6 @@
-def factor(n):
+"""This module contains functions that deal with factorization algorithms."""
+
+def factors(num):
     """
     Returns a unique sorted list of factors for the input integer.
 
@@ -11,34 +13,32 @@ def factor(n):
 
     returnlist = []
 
-    if n < 3:   # Check the trivial cases first, 1 and 2
-        for i in range(1, n+1):
+    if num < 3:   # Check the trivial cases first, 1 and 2
+        for i in range(1, num+1):
             returnlist.append(i)
         return returnlist
 
     else:
-        quotient = n//2
+        halfway = num//2
 
-        for i in range(1, quotient+1):
+        for i in range(1, halfway+1):
 
             # Skip the work for things already existing in list. Stops repeats
             if i in returnlist:
                 pass
 
             # Check for perfect squares to eliminate a root repeat
-            elif i*i == n:
+            elif i*i == num:
                 returnlist.extend([i])
 
             else:
-                q = n/i
-
-                if q%1 == 0:
-                    qint = n//i    # So number appears as integer in returnlist
+                if num%i == 0:
+                    qint = num//i    # So number appears as integer in returnlist
                     returnlist.extend([qint, i])
 
         return sorted(returnlist)
 
-def gcd_euclidean_alg(m, n):
+def gcd_euclidean_alg(num1, num2):
     """
     Return the greatest common divisor of the two inputs using the Euclidean
     algorithm.
@@ -52,12 +52,12 @@ def gcd_euclidean_alg(m, n):
 
     """
 
-    if m == n:
-        return m # if the numbers are the same, their gcd is that number
+    if num1 == num2:
+        return num1 # if the numbers are the same, their gcd is that number
 
     else:
-        maxi = max(m, n)
-        mini = min(m, n)
+        maxi = max(num1, num2)
+        mini = min(num1, num2)
         diff = maxi - mini
 
         return gcd_euclidean_alg(diff, mini) # recruse through the algoirthm

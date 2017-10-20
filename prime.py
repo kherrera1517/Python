@@ -32,7 +32,7 @@ def is_prime(num):
                 # Start at non-trivial potential factor (3) and skip over evens
                 for i in range(3, rootflr+1, 2):
 
-                    if p%i == 0:
+                    if num%i == 0:
                         return False # Not prime if integer divides p evenly
 
                     else:
