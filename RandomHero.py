@@ -1,17 +1,21 @@
+"""
+This script randomly decides which hero a user should pick in Overwatch based on
+some requested inputs.
+"""
 from random import randint
 from random import choice
 
 #Author: Kevin Herrera
 #RandomHero.py
-#Date: 1/13/17
-
-### Helps you pick a Hero in OW
+#Date: 10/20/17
 
 #List of all present Heroes as of 1/13/2017 
-Heroes = {'Offense': ['Genji', 'McCree', 'Pharah', 'Reaper', 'Soldier: 76', 'Sombra', 'Tracer'], 
-          'Defense': ['Bastion', 'Hanzo', 'Junkrat', 'Mei', 'Torbjorn', 'Widowmaker'],
-          'Tank': ['D.Va', 'Reinhardt', 'Roadhog', 'Winston', 'Zarya'],
-          'Support': ['Ana', 'Lucio', 'Mercy', 'Symmetra', 'Zen'],
+Heroes = {'Offense': ['Doomfist', 'Genji', 'McCree', 'Pharah', 'Reaper', 
+                        'Soldier: 76', 'Sombra', 'Tracer'], 
+          'Defense': ['Bastion', 'Hanzo', 'Junkrat', 'Mei', 'Torbjorn', 
+                        'Widowmaker'],
+          'Tank': ['D.Va', 'Orisa', 'Reinhardt', 'Roadhog', 'Winston', 'Zarya'],
+          'Support': ['Ana', 'Lucio', 'Mercy', 'Symmetra', 'Zenyatta'],
           'DPS': [],
           'Healer': []}
 
@@ -40,7 +44,7 @@ def main():
         heroType = input('What class of hero do you feel like playing today?\n'
                         'Your choices are Offense, Defense, Tank, Support, DPS,'
                         ' Healer, or Anything if you want me to pick.\n'
-                        'If you are done, type Done!\n')
+                        'If you are done, type Done.\n')
 
         #Makes sure user input is valid by checking it against possible_input
         while True:
@@ -49,7 +53,7 @@ def main():
                                 'Make sure you type Offense, Defense, Tank,'
                                 ' Support, DPS, Healer, Anything if you want'
                                 ' me to pick, or Done if you are done. Remember'
-                                ' the first letter is capitalized!\n')
+                                ' to capitalize!\n')
 
             else:
                 break
@@ -68,4 +72,5 @@ def main():
         print("You should play {}!\n".format(hero))
 
 #Calls main method when file is run
-if __name__ == '__main__': main()
+if __name__ == '__main__':
+    main()
