@@ -17,7 +17,7 @@ def is_prime(num):
         return False          # 1 is not considered prime and we eliminate evens
 
     else:
-        if num in [3, 5, 7]:    # Allows for loop below to start at 3, not 1
+        if num in [3, 5, 7]:    # Allows for loop below to start at 3, not 1ex
             return True
 
         else:
