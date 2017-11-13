@@ -2,3 +2,4 @@ Hello, this is an example text.
 We shall see if this works.
 Hopefully it doesn't break!
 Hello, I am going to see how this changes things.
+Hello, I am Legend.
