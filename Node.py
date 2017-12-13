@@ -1,38 +1,47 @@
+"""Node Class"""
 class Node:
     """Constructor for objects of type Node"""
-    def __init__(self, value, left_child = None, right_child = None, hidden_value = None):
-        self.value = value
+
+    def __init__(self, data, left_child=None, right_child=None, hidden_data=None):
+        self.data = data
         self.parent = None
         self.left_child = left_child
         self.right_child = right_child
-        self.hidden_value = hidden_value
+        self.hidden_data = hidden_data
 
     def __repr__(self):
         """Method returns a string representation for an object of type Node"""
 
-        s = "( {} )".format(self.value)
+        string = "( {} )".format(self.data)
 
-        return s
+        return string
 
-    def __gt__(a, b):
-        return a.value > b.value
+    def __gt__(self, a):
+        """Docstring"""
+        return self.data > a.data
 
-    def __lt__(a, b):
-        return a.value < b.value
+    def __lt__(self, a):
+        """Docstring"""
+        return self.data < a.data
 
-    def add_child(self, Node):
-        if self < Node:
+    def add_child(self, node):
+        """Docstring"""
+        if self < node:
             if self.right_child is None:
-                self.right_child = Node
+                self.right_child = node
             else:
                 print("Cannot add node. Node already has existing right child!")
-        elif self > Node:
+        elif self > node:
             if self.left_child is None:
-                self.left_child = Node
+                self.left_child = node
             else:
                 print("Cannot add node. Node already has existing left child!")
         else:
-            print("Node with value already exists!")
+            print("Node with data already exists!")
+
+    def get_data(self):
+        """Docstring"""
+        return self.data
 
 if __name__ == "__main__":
     n2 = Node(6)
