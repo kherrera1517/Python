@@ -38,14 +38,21 @@ class Field:
 
 
     # here is an example of a "method" of the Date class:
-    def shuffle(self):
-        """ Shuffles the Deck. Should be changed to hand or deck!"""
+    def shuffle(self, what):
+        """ Shuffles the Deck or Hand! """
         returnlist = []
-        for i in range(len(self.deck)):
-            card = random.choice(self.deck)
-            self.deck.remove(card)
-            returnlist.append(card)
-        self.deck = returnlist
+        if what == "deck":
+            for i in range(len(self.deck)):
+                card = random.choice(self.deck)
+                self.deck.remove(card)
+                returnlist.append(card)
+            self.deck = returnlist
+        else:
+            for i in range(len(self.hand)):
+                card = random.choice(self.hand)
+                self.hand.remove(card)
+                returnlist.append(card)
+            self.hand = returnlist
 
     def draw(self):
         """ Return top card of Deck. """
@@ -76,6 +83,44 @@ class Field:
             else:
                 self.banish.append(self.deck.pop(0))
 
+    def send_to(self, cards, loc = "deck", dest = "grave"):
+        if loc == "deck":
+            if dest == "grave":
+                for card in cards:
+                    if card in self.deck:
+                        self.grave.append(card)
+                        self.deck.remove(card)
+            else:
+                for card in cards:
+                    if card in self.deck:
+                        self.banish.append(card)
+                        self.deck.remove(card)
+        elif loc == "extradeck":
+            if dest == "grave":
+                for card in cards:
+                    if card in self.extra_deck:
+                        self.grave.append(card)
+                        self.extra_deck.remove(card)
+            else:
+                for card in cards:
+                    if card in self.extra_deck:
+                        self.banish.append(card)
+                        self.extra_deck.remove(card)
+        else:
+            print("comes in here to discard from hand!")
+            if dest == "grave":
+                for card in cards:
+                    print("Current card is {}.".format(card))
+                    if card in self.hand:
+                        self.grave.append(card)
+                        self.hand.remove(card)
+            else:
+                for card in cards:
+                    if card in self.hand:
+                        self.banish.append(card)
+                        self.hand.remove(card)
+
+
 
 def main():
     deck = ['Caspar', 'Caspar', 'Caspar', 'Starfire', 'Starfire', 'Starfire', 'Wild', 'Calamity', 
@@ -86,7 +131,7 @@ def main():
     'Death-perado', 'Death-perado', 'Dancing Needle', 'Devil\'s Deal', 'Deadman\'s Burst', 'Deadman\'s Burst', 'Deadman\'s Burst']
     # print(len(deck))
     f = Field(deck)
-    f.shuffle()
+    f.shuffle("deck")
     f.draw()
     f.draw()
     f.draw()
@@ -101,6 +146,12 @@ def main():
             f.mill_top()
         if command  == 'banish':
             f.mill_top('banish')
+        if command == 'discard':
+            card = input("What card would you like to discard? ")
+            f.send_to(card, "hand")
+        if command == 'shuffle':
+            what = input("What would you like to shuffle? ")
+            f.shuffle(what)
         if command == 'quit':
             break
         print('Your hand is {}.'.format(f.hand))
