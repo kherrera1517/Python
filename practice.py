@@ -305,6 +305,7 @@ def remove_duplicates_while(nums):
     return len(nums)
 
 def remove_duplicates(nums):
+    """"""
     if len(nums) == 0:
         return 0
     
@@ -316,6 +317,73 @@ def remove_duplicates(nums):
 
     return i + 1
 
+def remove_element(arr, element):
+    if len(arr) == 0:
+        return 0
+
+    i = 0
+    for j in range(len(nums)-1):
+        if(arr[j+1] == element):
+            
+
+# Python program for implementation of heap Sort
+ 
+# To heapify subtree rooted at index i.
+# n is size of heap
+# NOT MY OWN
+def heapify(arr, n, i):
+    largest = i  # Initialize largest as root
+    l = 2 * i + 1     # left = 2*i + 1
+    r = 2 * i + 2     # right = 2*i + 2
+ 
+    # See if left child of root exists and is
+    # greater than root
+    if l < n and arr[i] < arr[l]:
+        largest = l
+ 
+    # See if right child of root exists and is
+    # greater than root
+    if r < n and arr[largest] < arr[r]:
+        largest = r
+ 
+    # Change root, if needed
+    if largest != i:
+        arr[i],arr[largest] = arr[largest],arr[i]  # swap
+ 
+        # Heapify the root.
+        heapify(arr, n, largest)
+ 
+# The main function to sort an array of given size
+def heapSort(arr):
+    n = len(arr)
+ 
+    # Build a maxheap.
+    for i in range(n, -1, -1):
+        heapify(arr, n, i)
+ 
+    # One by one extract elements
+    for i in range(n-1, 0, -1):
+        arr[i], arr[0] = arr[0], arr[i]   # swap
+        heapify(arr, i, 0)
+ 
+# Driver code to test above
+arr = [ 12, 11, 13, 5, 6, 7]
+heapSort(arr)
+n = len(arr)
+print ("Sorted array is")
+for i in range(n):
+    print ("%d" %arr[i])
+
+def merge(arr, left, middle, right):
+    print('hi')
+
+def mergeSort(arr, left, right):
+    if left < right:
+        mid = length_arr//2
+
+        mergeSort(arr, left, mid)
+        mergeSort(arr, mid+1, right)
+        merge(arr, l, m, r)
 
 def main():
     # ls = [4, 7, 0, 6, 9, 1, 5, 3, 8, 2]
