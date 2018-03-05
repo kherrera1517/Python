@@ -290,19 +290,19 @@ def mergeTwoLists(l1, l2):
             new_node.next = mergeTwoLists(l1, l2.next)
             return new_node
 
-def remove_duplicates_while(nums):
-    length = len(nums)
-    index = 0
+# def remove_duplicates_while(nums):
+#     length = len(nums)
+#     index = 0
 
-    while(index<length-1):
-        # print(index)
-        # print(length)
-        if nums[index] == nums[index+1]:
-            nums.remove(nums[index])
-            length-=1
-        else:
-            index +=1
-    return len(nums)
+#     while(index<length-1):
+#         # print(index)
+#         # print(length)
+#         if nums[index] == nums[index+1]:
+#             nums.remove(nums[index])
+#             length-=1
+#         else:
+#             index +=1
+#     return len(nums)
 
 def remove_duplicates(nums):
     """"""
@@ -317,13 +317,65 @@ def remove_duplicates(nums):
 
     return i + 1
 
-def remove_element(arr, element):
-    if len(arr) == 0:
+# def remove_element(arr, element):
+#     arr_len = len(arr)
+#     if arr_len == 0:
+#         return 0
+
+#     i = 0
+#     j = arr_len - 1
+#     while(i != j):
+#         # print("i and j are {} and {}".format(i,j))
+#         if arr[j] == element:
+#             j -= 1
+#             continue
+#         if arr[i] == element:
+#             arr[i], arr[j] = arr[j], arr[i]
+#             i += 1
+#         else:
+#             i += 1
+
+#     return i
+
+def remove_element_mine(arr, element):
+    arr_len = len(arr)
+    if arr_len == 0:
         return 0
 
     i = 0
-    for j in range(len(nums)-1):
-        if(arr[j+1] == element):
+    j = arr_len - 1
+    while(i < j):
+        # print("i and j are {} and {}".format(i,j))
+        if arr[i] != element:
+            # print('should come in here for arr i')
+            i += 1
+        elif arr[j] == element:
+            # print('should come in here for arr j')
+            j -= 1
+        else:
+            # print('should come in here')
+            arr[i], arr[j] = arr[j], arr[i]
+            i += 1
+
+    return arr[:i]
+
+def remove_element(arr, element):
+    length = len(arr)
+    if length == 0:
+        return length
+
+    elif length == 1:
+        if arr[0] == element:
+            return 0
+        else:
+            return length
+    else:
+        i = 0
+        for j in range(len(arr)):
+            if(arr[j] != element):
+                arr[i], arr[j] = arr[j], arr[i]
+                i += 1
+        return i
             
 
 # Python program for implementation of heap Sort
@@ -367,15 +419,15 @@ def heapSort(arr):
         heapify(arr, i, 0)
  
 # Driver code to test above
-arr = [ 12, 11, 13, 5, 6, 7]
-heapSort(arr)
-n = len(arr)
-print ("Sorted array is")
-for i in range(n):
-    print ("%d" %arr[i])
+# arr = [ 12, 11, 13, 5, 6, 7]
+# heapSort(arr)
+# n = len(arr)
+# print ("Sorted array is")
+# for i in range(n):
+#     print ("%d" %arr[i])
 
-def merge(arr, left, middle, right):
-    print('hi')
+# def merge(arr, left, middle, right):
+#     print('hi')
 
 def mergeSort(arr, left, right):
     if left < right:
@@ -438,13 +490,18 @@ def main():
 
     # print(mergeTwoLists(linked_list1, linked_list2))
     # print(mergeTwoLists(linked_list1, linked_list2))
-    nums1 = [1, 1, 2, 2, 2, 3, 3, 3]
-    nums2 = [1,1,2]
+    # nums1 = [1, 1, 2, 2, 2, 3, 3, 3]
+    # nums2 = [1,1,2]
 
-    print(remove_duplicates(nums1))
-    print(nums1)
-    print(remove_duplicates(nums2))
-    print(nums2)
+    # print(remove_duplicates(nums1))
+    # print(nums1)
+    # print(remove_duplicates(nums2))
+    # print(nums2)
+
+    # nums = [3,4,3,4,3,3,4]
+    nums = [3, 2, 2, 3]
+    print(remove_element(nums,3))
+    print(nums)
 
 if __name__ == "__main__":
     main()
