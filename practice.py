@@ -494,8 +494,109 @@ def countandsay(n):
         return_string = countandsayhelper(return_string)
         n -= 1
     return return_string
-    
 
+def max_subarray(nums):
+    nums_len = len(nums)
+    temp_sum = 0
+    max_sofar = float("-inf")
+    for i in range(nums_len):
+        temp_sum += nums[i]
+        if temp_sum > max_sofar:
+            max_sofar = temp_sum
+        if temp_sum < 0:
+            temp_sum = 0
+    return max_sofar
+
+def subarray_degree(nums):
+    left, right, count = {}, {}, {}
+    for index, num in enumerate(nums):
+        if num not in left:
+            left[num] = index
+        right[num] = index
+        count[num] = count.get(num, 0) + 1
+    answer = len(nums)
+    degree = max(count.values())
+
+    for num in count:
+        if count[num] == degree:
+            answer = min(answer, right[num]-left[num]+1)
+
+    return answer
+
+def length_of_lastword(string):
+    if string == "":
+        return 0
+    else:
+        return_len = 0
+        first_seen = False
+        for i in range(len(string)-1,-1,-1):
+            if string[i] != ' ':
+                return_len += 1
+                first_seen = True
+            elif first_seen:
+                break
+        return return_len
+
+def add_binary(str1, str2):
+    if str1 == "":
+        return str2
+    elif str2 == "":
+        return str1
+    if str1[-1] == '0' and str2[-1] == '0':
+        return add_binary(str1[:-1], str2[:-1]) + '0'
+    elif (str1[-1] == '1' and str2[-1] == '0') or (str1[-1] == '0' and str2[-1] == '1'):
+        return add_binary(str1[:-1], str2[:-1]) + '1'
+    else:
+        return add_binary(add_binary(str1[:-1],str2[:-1]),'1') + '0'
+
+def plus_one(digits):
+    if len(digits) < 1:
+        return digits
+    elif len(digits) == 1 and digits[0] == 9:
+        return [1, 0]
+    else:
+        if digits[-1] == 9:
+            newlist = plus_one(digits[:-1])
+            newlist.append(0)
+            return newlist
+        else:
+            digits[-1] = digits[-1] + 1
+            return digits
+
+def delete_duplicates_linkedlist(head):
+    if head is None:
+        return None
+    curr_node = head
+    curr_val = curr_node.val
+    while(curr_node.next is not None):
+        if curr_val == (curr_node.next).val:
+            curr_node.next = (curr_node.next).next
+        else:
+            curr_node = curr_node.next
+            curr_val = curr_node.val
+            
+    return head
+
+def remove_element_linkedlist(head, val):
+    if head is None:
+        return None
+    curr_node = head
+    while(curr_node.next is not None):
+        if (curr_node.next).val == val:
+            curr_node.next = (curr_node.next).next
+        else:
+            curr_node = curr_node.next
+
+    if head.val == val:
+        head = head.next
+    return head
+
+def delete_node(node):
+    if node.next is not None:
+        node.val = (node.next).val
+        node.next = (node.next).next
+    else:
+        node = None
 
 def main():
     # ls = [4, 7, 0, 6, 9, 1, 5, 3, 8, 2]
@@ -573,12 +674,22 @@ def main():
     # print(search_insert_position(arr1, 2))
     # print(search_insert_position(arr1, 7))
     # print(search_insert_position(arr1, 0))
-    print(countandsay(2))
-    print(countandsay(3))
-    print(countandsay(4))
-    print(countandsay(5))
-    print(countandsay(6))
-    print(countandsay(7))
+    # print(countandsay(2))
+    # print(countandsay(3))
+    # print(countandsay(4))
+    # print(countandsay(5))
+    # print(countandsay(6))
+    # print(countandsay(7))
+
+    # print(max_subarray([-2, 1, -3, 4, -1, 2, 1, -5, 4]))
+    # print(max_subarray([-13, -3, 4,-1, 5, -25, -20, -3, -16, -23, -12, -5, -22, -15, -4, -7]))
+
+    # print(subarray_degree([2,1,1,3,2]))
+
+    # print(length_of_lastword("Hello World"))
+    # print(add_binary('1', '11'))
+
+    print(plus_one([9,9,9,9,9,9,9,9]))
 
 if __name__ == "__main__":
     main()
