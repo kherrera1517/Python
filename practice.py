@@ -337,7 +337,7 @@ def remove_duplicates(nums):
 
 #     return i
 
-def remove_element_mine(arr, element):
+def remove_element_1sttry(arr, element):
     arr_len = len(arr)
     if arr_len == 0:
         return 0
@@ -437,6 +437,66 @@ def mergeSort(arr, left, right):
         mergeSort(arr, mid+1, right)
         merge(arr, l, m, r)
 
+def needle_in_haystack(haystack, needle):
+    need_len = len(needle)
+    hay_len = len(haystack)
+    if needle == "":
+        return 0
+    else:
+        for j in range(hay_len):
+            if need_len > hay_len:
+                break
+            elif haystack[j] == needle[0]:
+                if haystack[j:(j+need_len)] == needle:
+                    return j
+
+    return -1
+
+def search_insert_position(nums, val):
+    """No Duplicates in original nums list"""
+    if nums == []:
+        return 0
+    for i in range(len(nums)):
+        if nums[i] >= val:
+            return i
+        # elif nums[i] < val and nums[i+1] > val:
+        #     return i + 1
+    return i+1
+
+def countandsayhelper(num_string):
+    # print('num_string is {}'.format(num_string))
+    len_str = len(num_string)
+    return_string = ""
+    if len_str < 1:
+        # print('only here gives empty')
+        return return_string
+    elif len_str == 1:
+        return '1' + num_string
+    else:
+        i = 1
+        for j in range(len_str-1):
+            if num_string[j] == num_string[j+1]:
+                i += 1
+            else:
+                return_string += str(i) + num_string[j]
+                i = 1
+        if num_string[-1] != num_string[-2]:
+            return_string += "1" + num_string[-1]
+        else:
+            return_string += str(i) + num_string[j]
+        # print("doesn't modify this")
+        return return_string
+
+
+def countandsay(n):
+    return_string = "1"
+    while(n>1):
+        return_string = countandsayhelper(return_string)
+        n -= 1
+    return return_string
+    
+
+
 def main():
     # ls = [4, 7, 0, 6, 9, 1, 5, 3, 8, 2]
     # print('ls is {}'.format(ls))
@@ -499,9 +559,26 @@ def main():
     # print(nums2)
 
     # nums = [3,4,3,4,3,3,4]
-    nums = [3, 2, 2, 3]
-    print(remove_element(nums,3))
-    print(nums)
+    # nums = [3, 2, 2, 3]
+    # print(remove_element(nums,3))
+    # print(nums)
+
+    # hay = "hello"
+    # needle = "ll"
+
+    # print(needle_in_haystack(hay, needle))
+    # arr1 = [1, 3, 5, 6]
+
+    # print(search_insert_position(arr1, 5))
+    # print(search_insert_position(arr1, 2))
+    # print(search_insert_position(arr1, 7))
+    # print(search_insert_position(arr1, 0))
+    print(countandsay(2))
+    print(countandsay(3))
+    print(countandsay(4))
+    print(countandsay(5))
+    print(countandsay(6))
+    print(countandsay(7))
 
 if __name__ == "__main__":
     main()
