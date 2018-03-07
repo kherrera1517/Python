@@ -598,6 +598,57 @@ def delete_node(node):
     else:
         node = None
 
+def get_intersect_linkedlist(headA, headB):
+    if headA is None or headB is None:
+        return None
+    match = False
+    currA = headA
+    currB = headB
+    intersect_node = None
+    while(True):
+        if currA.val == currB.val:
+            if not match:
+                match = True
+                intersect_node = currA
+        else:
+            match = False
+            intersect_node = None
+
+        if currA.next is None:
+            if currB.next is None:
+                break
+            else:
+                currA = headB
+        else:
+            currA = currA.next
+        
+        if currB.next is None:
+            currB = headA
+        else:
+            currB = currB.next
+
+    return intersect_node
+
+def common_restaurants(list1, list2):
+    shortest = float('inf')
+    common = {}
+    for index1, string1 in enumerate(list1):
+        for index2, string2 in enumerate(list2):
+            if string1 == string2:
+                index = index1+index2
+                common[string1] = index
+                if index < shortest:
+                    shortest = index
+    
+    returnlist = []
+    for item in common:
+        if common[item] == shortest:
+            returnlist.append(item)
+
+    return returnlist
+
+
+
 def main():
     # ls = [4, 7, 0, 6, 9, 1, 5, 3, 8, 2]
     # print('ls is {}'.format(ls))
@@ -689,7 +740,8 @@ def main():
     # print(length_of_lastword("Hello World"))
     # print(add_binary('1', '11'))
 
-    print(plus_one([9,9,9,9,9,9,9,9]))
+    # print(plus_one([9,9,9,9,9,9,9,9]))
+    print(common_restaurants(["Shogun", "Tapioca Express", "Burger King", "KFC"],["KFC", "Shogun", "Burger King"]))
 
 if __name__ == "__main__":
     main()
