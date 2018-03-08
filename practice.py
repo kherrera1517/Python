@@ -429,13 +429,70 @@ def heapSort(arr):
 # def merge(arr, left, middle, right):
 #     print('hi')
 
-def mergeSort(arr, left, right):
-    if left < right:
-        mid = length_arr//2
-
-        mergeSort(arr, left, mid)
-        mergeSort(arr, mid+1, right)
+def merge(arr, l, m, r):
+    n1 = m - l + 1
+    n2 = r- m
+ 
+    # create temp arrays
+    L = [0] * (n1)
+    R = [0] * (n2)
+ 
+    # Copy data to temp arrays L[] and R[]
+    for i in range(0 , n1):
+        L[i] = arr[l + i]
+ 
+    for j in range(0 , n2):
+        R[j] = arr[m + 1 + j]
+ 
+    # Merge the temp arrays back into arr[l..r]
+    i = 0     # Initial index of first subarray
+    j = 0     # Initial index of second subarray
+    k = l     # Initial index of merged subarray
+ 
+    while i < n1 and j < n2 :
+        if L[i] <= R[j]:
+            arr[k] = L[i]
+            i += 1
+        else:
+            arr[k] = R[j]
+            j += 1
+        k += 1
+ 
+    # Copy the remaining elements of L[], if there
+    # are any
+    while i < n1:
+        arr[k] = L[i]
+        i += 1
+        k += 1
+ 
+    # Copy the remaining elements of R[], if there
+    # are any
+    while j < n2:
+        arr[k] = R[j]
+        j += 1
+        k += 1
+ 
+# l is for left index and r is right index of the
+# sub-array of arr to be sorted
+def mergeSort(arr,l,r):
+    if l < r:
+ 
+        # Same as (l+r)/2, but avoids overflow for
+        # large l and h
+        m = (l+r)//2
+ 
+        # Sort first and second halves
+        mergeSort(arr, l, m)
+        mergeSort(arr, m+1, r)
         merge(arr, l, m, r)
+
+# def mergeSort(arr, left, right):
+#     if left < right:
+#         mid = length_arr//2
+
+#         mergeSort(arr, left, mid)
+#         mergeSort(arr, mid+1, right)
+#         merge(arr, l, m, r)
 
 def needle_in_haystack(haystack, needle):
     need_len = len(needle)
@@ -647,6 +704,101 @@ def common_restaurants(list1, list2):
 
     return returnlist
 
+# def prefix_to_infix(prefixes):
+#     if len(prefixes) < 1:
+#         return []
+#     return_arr = []
+#     digits = ['1','2','3','4','5','6','7','8','9']
+#     for i in range(len(prefixes)):
+#         temp = ""
+#         left = ""
+#         right = ""
+#         for j in range(len(prefixes[i])-1,-1,-1):
+#             if prefixes[i][j] in digits:
+#                 if right:
+#                     left = prefixes[i][j]
+#                 else:
+#                     right = prefixes[i][j]
+#             else:
+#                 temp = left + prefixes[i][j] + right
+#                 temp = right
+
+def prefix_to_suffix(prefixes):
+
+    return_arr = []
+    for i in range(len(prefixes)):
+        return_arr.append(pref2suff(prefixes[i]))
+
+    return return_arr
+
+def pref2suff(pref):
+    # digits = ['1','2','3','4','5','6','7','8','9']
+    op_precedence = {'/':1, '*':2,'+':3, '-':4}
+    operands = ['/', '*', '+','-']
+    left = ""
+    right = ""
+    operators = []
+    if len(pref) < 3:
+        return pref
+    else:
+        if pref[0] in operands:
+            if pref[1] in operands:
+                i = 1
+                while(pref[i] in operands):
+                    i+=1
+                temp_nums = ""
+                j = i
+                k = i
+                while(j>0):
+                    temp_nums += pref[i]
+                    j -= 1
+                    i += 1
+
+
+
+
+                if op_precedence[pref[0]] < op_precedence[pref[1]]:
+                    left = pref[2:4] + pref[0]
+                    right = pref[1]
+                    return left + pref2suff(pref[4:]) + right
+                else:
+                    left = pref[2:4] + pref[1]
+                    right = pref[0]
+                    return left + pref2suff(pref[4:]) + right
+            else:
+                left = pref[1]
+                right = pref[0]
+                return left + pref2suff(pref[2:]) + right
+        return pref
+
+def inverted_triple_array(nums):
+    return 0
+
+def solution(S, K):
+    # write your code in Python 3.6
+    s_upper = S.upper()
+    s_upper = s_upper.replace("-","")
+        
+    return_str = ""
+    remainder =  len(s_upper)%K
+    
+    if len(s_upper)<=K:
+        return S.upper()
+    
+    # elif remainder != 0:
+    prev_i = 0
+    for i in range(remainder, len(s_upper)+1, K):
+        print(i)
+        return_str += s_upper[prev_i:i] + '-'
+        prev_i = i
+
+    # else:
+    #     for i in range(K, len(s_upper)+1, K):
+    #         return_str += s_upper[:i] + '-'
+    if return_str[0] == '-':
+        return_str = return_str[1:]
+    return return_str[:-1]
+
 
 
 def main():
@@ -741,7 +893,15 @@ def main():
     # print(add_binary('1', '11'))
 
     # print(plus_one([9,9,9,9,9,9,9,9]))
-    print(common_restaurants(["Shogun", "Tapioca Express", "Burger King", "KFC"],["KFC", "Shogun", "Burger King"]))
+    # print(common_restaurants(["Shogun", "Tapioca Express", "Burger King", "KFC"],["KFC", "Shogun", "Burger King"]))
+
+    # arr = ["+1**23/14"]
+    # arr2 = ["+*776"]
+    # print(arr2)
+    # print(prefix_to_suffix(arr2))
+
+    S = "2-4A0r7-4k"
+    print(solution(S, 4))
 
 if __name__ == "__main__":
     main()
