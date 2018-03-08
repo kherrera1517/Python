@@ -817,9 +817,9 @@ def compare_time(time1, time2):
 
 def next_time(time):
     digits = [time[0], time[1], time[3], time[4]]
-    poss0 = [x for x in digits if x < 3]
-    poss1 = [x for x in digits if x < 4]
-    poss3 = [x for x in digits if x < 6]
+    poss0 = [x for x in digits if x < '3']
+    poss1 = [x for x in digits if x < '4']
+    poss3 = [x for x in digits if x < '6']
     poss4 = digits
 
     permutations = []
@@ -831,7 +831,7 @@ def next_time(time):
         for j in range(len(poss1)):
             curr1 = poss1[j]
             poss3.remove(curr0)
-            poss3.remove(curr1) 
+            poss3.remove(curr1)
 
             for k in range(len(poss3)):
                 curr3 = poss3[k]
@@ -841,7 +841,17 @@ def next_time(time):
 
                 for l in range(len(poss4)):
                     curr4 = poss4[l]
-                    permutations.append(curr0+curr1+':'+curr3+curr4)
+                    to_add = curr0+curr1+':'+curr3+curr4
+
+                    if to_add not in permutations:
+                        permutations.append(curr0+curr1+':'+curr3+curr4)
+
+                poss4.append(curr0)
+                poss4.append(curr1)
+                poss4.append(curr3)
+
+            poss3.append(curr0)
+            poss3.append(curr1)
 
         poss1.append(curr0)
     
@@ -948,8 +958,10 @@ def main():
     # print(arr2)
     # print(prefix_to_suffix(arr2))
 
-    S = "2-4A0r7-4k"
-    print(solution(S, 4))
+    # S = "2-4A0r7-4k"
+    # print(modify_key(S, 4))
+
+    print(next_time('11:00'))
 
 if __name__ == "__main__":
     main()
