@@ -774,7 +774,8 @@ def pref2suff(pref):
 def inverted_triple_array(nums):
     return 0
 
-def solution(S, K):
+def modify_key(S, K):
+    #remove dashes and uppercase everything
     # write your code in Python 3.6
     s_upper = S.upper()
     s_upper = s_upper.replace("-","")
@@ -788,6 +789,8 @@ def solution(S, K):
     # elif remainder != 0:
     prev_i = 0
     for i in range(remainder, len(s_upper)+1, K):
+        if i == 0:
+            continue
         print(i)
         return_str += s_upper[prev_i:i] + '-'
         prev_i = i
@@ -795,9 +798,54 @@ def solution(S, K):
     # else:
     #     for i in range(K, len(s_upper)+1, K):
     #         return_str += s_upper[:i] + '-'
-    if return_str[0] == '-':
-        return_str = return_str[1:]
+    # if return_str[0] == '-':
+    #     return_str = return_str[1:]
     return return_str[:-1]
+
+def compare_time(time1, time2):
+    """ for time format '23:59' """
+    
+
+    for i in range(5):
+        if time1[i] == time2[i]:
+            continue
+        elif time1[i] > time2[i]:
+            return 1
+        else:
+            return -1
+    return 0
+
+def next_time(time):
+    digits = [time[0], time[1], time[3], time[4]]
+    poss0 = [x for x in digits if x < 3]
+    poss1 = [x for x in digits if x < 4]
+    poss3 = [x for x in digits if x < 6]
+    poss4 = digits
+
+    permutations = []
+
+    for i in range(len(poss0)):
+        curr0 = poss0[i]
+        poss1.remove(curr0)
+
+        for j in range(len(poss1)):
+            curr1 = poss1[j]
+            poss3.remove(curr0)
+            poss3.remove(curr1) 
+
+            for k in range(len(poss3)):
+                curr3 = poss3[k]
+                poss4.remove(curr0)
+                poss4.remove(curr1)
+                poss4.remove(curr3)
+
+                for l in range(len(poss4)):
+                    curr4 = poss4[l]
+                    permutations.append(curr0+curr1+':'+curr3+curr4)
+
+        poss1.append(curr0)
+    
+    print(permutations)
 
 
 
