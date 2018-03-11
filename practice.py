@@ -855,19 +855,6 @@ def next_time(time):
 
         poss1.append(curr0)
     
-    if len(permutations) == 1:
-        return permutations[0]
-
-    time_above = '24:00'
-    time_below = time
-    return_time = time
-    for perm in permutations:
-        if compare_time(perm, time) == 1:
-            if compare_time(perm,time_above) == -1:
-                return_time = perm
-                time_above = perm
-        elif compare_time(perm, time) == -1:
-            if return_time == time
     print(permutations)
 
 
