@@ -867,8 +867,15 @@ def next_time(time):
                 return_time = perm
                 time_above = perm
         elif compare_time(perm, time) == -1:
-            if return_time == time
-    print(permutations)
+            if compare_time(perm,time_below) == -1:
+                time_below = perm
+    
+    if return_time == time:
+        return time_below
+    
+    else:
+        return return_time
+
 
 
 
@@ -975,6 +982,9 @@ def main():
     # print(modify_key(S, 4))
 
     print(next_time('11:00'))
+    print(next_time('23:48'))
+    print(next_time('23:00'))
+    print(next_time('21:04'))
 
 if __name__ == "__main__":
     main()
