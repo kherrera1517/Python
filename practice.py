@@ -1,4 +1,4 @@
-from random import random
+from random import randint
 
 def quicksort(num_list):
     """Quick Sort function to recursively sort a list of numbers. 
@@ -962,6 +962,9 @@ def main():
     # print(modify_key(S, 4))
 
     print(next_time('11:00'))
+    print(next_time('23:48'))
+    print(next_time('23:00'))
+    print(next_time('21:04'))
 
 if __name__ == "__main__":
     main()
