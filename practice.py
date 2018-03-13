@@ -1,4 +1,5 @@
 from random import randint
+from math import isclose, floor, sqrt, ceil
 
 def quicksort(num_list):
     """Quick Sort function to recursively sort a list of numbers. 
@@ -876,7 +877,60 @@ def next_time(time):
     else:
         return return_time
 
+def newt_method(function, derivate, initial):
+    return initial - function(initial)/derivate(initial)
 
+
+def root(num):
+    func = lambda x : x**2 - num
+    fprime = lambda x : 2*x
+    initial = num/2
+
+    while(not isclose(initial**2, num, rel_tol = 1.0e-06)):
+        initial = newt_method(func, fprime, initial)
+    return floor(initial)
+
+def is_perfect_square(num):
+    root = num**0.5
+    if root%1 == 0:
+        return True
+    else:
+        return False
+
+def sum_of_squares(num):
+    for factor1 in range(floor(sqrt(num))+1):
+        factor2 = sqrt(num - factor1**2)
+        if factor2%1 == 0:
+            return True
+    return False
+
+class TreeNode:
+    def __init__(self, x):
+        self.val = x
+        self.left = None
+        self.right = None
+
+def is_same_tree(tree1, tree2):
+    if tree1 is None and tree2 is None:
+        return True
+    elif tree1 is None or tree2 is None:
+        return False
+
+    if tree1.val == tree2.val:
+        return is_same_tree(tree1.left, tree2.left) and is_same_tree(tree1.right, tree2.right)
+    else:
+        return False
+        
+def cracklepop():
+    for i in range(1,101):
+        if i%3 == 0 and i%5 == 0:
+            print("CracklePop")
+        elif i%3 == 0:
+            print("Crackle")
+        elif i%5 == 0:
+            print("Pop")
+        else:
+            print(i)
 
 def main():
     # ls = [4, 7, 0, 6, 9, 1, 5, 3, 8, 2]
@@ -980,10 +1034,12 @@ def main():
     # S = "2-4A0r7-4k"
     # print(modify_key(S, 4))
 
-    print(next_time('11:00'))
-    print(next_time('23:48'))
-    print(next_time('23:00'))
-    print(next_time('21:04'))
+    # print(next_time('11:00'))
+    # print(next_time('23:48'))
+    # print(next_time('23:00'))
+    # print(next_time('21:04'))
+
+    print(sum_of_squares(0))
 
 if __name__ == "__main__":
     main()
