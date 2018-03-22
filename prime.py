@@ -8,12 +8,14 @@ def is_prime(num):
     Returns True if input number is prime by checking odd numbers up to the root
     of the input number and skipping any even numbers. Trial division method.
 
-    Input: nnum (integer): Number to check primality of.
+    Input: num (integer): Number to check primality of.
 
     Output: True if input is prime. False otherwise.
 
     """
-    if (num == 1) or (num%2 == 0):
+    if (num == 2): # True is prime!
+        return True
+    elif (num == 1) or (num%2 == 0):
         return False          # 1 is not considered prime and we eliminate evens
 
     else:
@@ -58,3 +60,55 @@ def coprime(num1, num2):
 
     else:
         return False
+
+def factorization_helper(num, ls):
+    """
+    Finds first prime factor of the input integer and adds it to the list of 
+    prime factors. Recursively calls itself to complete the prime factorization 
+    of the original input. If the original number is prime, it will return only
+    that integer.
+    """
+    for i in range(floor(num**.5)+1):
+        if is_prime(i) and num%i == 0:
+            ls.append(i)
+            return factorization_helper(num//i, ls)
+    ls.append(num)
+    return ls
+
+
+def prime_factorization(num):
+    """
+    Wrapper function for the helper function that factors the input integer into
+    prime factors.
+    """
+    return factorization_helper(num, [])
+
+def unique_factorization_helper(num, ls):
+    """
+    Finds first prime factor of the input integer and adds it to the list of 
+    prime factors. Recursively calls itself to complete the prime factorization 
+    of the original input. Makes sure to not add factors that already exist.
+     If the original number is prime, it will return only that integer.
+    """
+    for i in range(floor(num**.5)+1):
+        if is_prime(i) and num%i == 0:
+            if i not in ls:
+                ls.append(i)
+            return unique_factorization_helper(num//i, ls)
+    if num not in ls:
+        ls.append(num)
+    return ls
+
+
+def unique_prime_factorization(num):
+    """
+    Wrapper function for the helper function that factors the input integer into
+    unique prime factors.
+    """
+    return unique_factorization_helper(num, [])
+
+def main():
+    print(prime_factorization(3**7))
+
+if __name__ == "__main__":
+    main()

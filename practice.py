@@ -50,26 +50,42 @@ def reverse32int(num):
         return rev_num
 
 def isnum_palindrome(num):
+    """
+    Determines whether a given integer input is a palindrome or not without
+    using extra space.
+    Input: Integer
+    Output: Boolean
+    """
+    # negative integers are NOT palindromes
     if num < 0:
-        return False
+        return False 
 
+    # single digit integers are defined as palindromes
     elif num < 10:
         return True
 
+    # divisor we will use to obtain the left most digit
     divisor = 1
 
     while(num//divisor >= 10):
         divisor *= 10
 
+    # loop until we have checked every digit in the number
     while(num != 0):
+        # obtain left and right digit only
         left = num//divisor
         right = num%10
 
+        # if ever the left and right digits are not equal, then it is not a
+        # palindrome
         if left != right:
             return False
         
+        # use modular arithmetic to eliminate left most digit, then integer 
+        # divison to eliminate right most digit in num
         num = (num%divisor)//10
 
+        # update divisor
         divisor //= 100
 
     return True
@@ -198,15 +214,18 @@ def roman_to_int(roman):
     return number
 
 def longest_common_prefix(strlist):
+    """"""
     if len(strlist) < 1:
         return ""
 
-    elif len(strlist) < 2:
+    elif len(strlist) == 1:
         return strlist[0]
 
     else:
+        # First get the longest common prefix of the first 2 strings
         longest_common = lcp_helper(strlist[0], strlist[1])
 
+        # Loop through the rest of the strings using the current LCP
         for i in range(2,len(strlist)):
             longest_common = lcp_helper(longest_common, strlist[i])
 
