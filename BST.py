@@ -15,9 +15,11 @@ class BST:
 
         return s
 
-    def insert(self, value):
-        n = Node(value)
-        if self.root < n:
-            if self.right is None:
-                self.right = n
-            else insert
+    
+
+    # def insert(self, value):
+    #     n = Node(value)
+    #     if self.root < n:
+    #         if self.right is None:
+    #             self.right = n
+    #         else insert
