@@ -34,7 +34,7 @@ class Iterator:
 
 class LinkedList:
     """A Singly Linked List Class"""
-    def __init__(self, ls):
+    def __init__(self, ls=[]):
         if ls == []:
             self.head = None
         else:
@@ -44,6 +44,8 @@ class LinkedList:
                 current_node.next = Node(ls[i])
                 current_node = current_node.next
 
+        self.size_ = len(ls)
+
     def __str__(self):
         current_node = self.head
         return_str = ""
@@ -52,10 +54,16 @@ class LinkedList:
             current_node = current_node.next
         return return_str
 
+    def size(self):
+        return self.size_
+
     def add_first(self, value):
         newhead = Node(value, self.head)
         self.head = newhead
+        self.size_ += 1
 
+    #CAN ADD DEFAULT PARAMETER SO THAT ADD CAN ADD ANYWHERE ON THE LIST
+    #if we add the change above, we can change add_first to be a wrapper func
     def add(self, value):
         """Adds to end of linked list"""
         if self.head is None:
@@ -65,6 +73,8 @@ class LinkedList:
             while(curr_node.has_next()):
                 curr_node = curr_node.next
             curr_node.next = Node(value)
+        
+            self.size_ += 1
         
     def contains(self, value):
         if self.head is None:
@@ -90,6 +100,7 @@ class LinkedList:
                 else:
                     prev_node = current_node
                     current_node = current_node.next
+        self.length -= 1
 
 
 
@@ -113,7 +124,8 @@ def main():
     lils.delete(10)
     print(lils)
     ll.delete(6)
-    print(ll)
+    print('ll is {}'.format(ll))
+    print('the size of ll is {}'.format(ll.size()))
     # i = Iterator(ll)
     # print(next(i))
 
