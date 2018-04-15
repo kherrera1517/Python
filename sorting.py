@@ -16,7 +16,7 @@ def mergesort_merge(arr, start_index, end_index):
     # calculate the ending position of the left half and starting position of
     # the right half
     left_end = (end_index+start_index)//2
-    right_start = (left_end+1)
+    right_start = left_end+1
 
     # Counters we'll use to keep track of our position in our while loop!
     left_index = start_index
@@ -60,6 +60,7 @@ def mergesort_helper(arr, start_index, end_index):
 
     middle = (start_index+end_index)//2
 
+    # Cut the left and right halves until we are only looking at one item
     mergesort_helper(arr, start_index, middle)
     mergesort_helper(arr, middle+1, end_index)
 

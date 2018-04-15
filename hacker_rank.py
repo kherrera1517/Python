@@ -1,4 +1,5 @@
 from itertools import product
+import re
 # Helpers
 
 
@@ -41,22 +42,97 @@ def maximize_it():
 
     print(max(result_list))
 
-def valid_postal_code():
-    #add constraints of range 100000-999999
-    code = input("Input postal code: ")
-    counter = 0
-    for index in range(len(code)-2):
-        if(code[index]==code[index+2]):
-            counter +=1
-        if counter > 1:
-            print(False)
-            return
+# def valid_postal_code():
+#     #add constraints of range 100000-999999
+#     code = input("Input postal code: ")
+#     counter = 0
+#     for index in range(len(code)-2):
+#         if(code[index]==code[index+2]):
+#             counter +=1
+#         if counter > 1:
+#             print(False)
+#             return
 
-    print(True)
+#     print(True)
+
+def valid_postal_code():
+    # print(re.match(r'^' r'[1-4]\d{3}' r'$', input() ))
+    # print(re.match(r'[0-9]\d{5}' r'$', input()))
+    # print(re.match(r'[1-9]\d{5}$', '12324'))
+    print(re.match(
+    r'.*(.).\1.\1' r'[1-9]\d{5}', '213141'))
+#     print(re.match(
+#     r'^'
+#     r'(?!.*(.).\1.*(.).\2)'
+#     r'(?!.*(.)(.)\3\4)'
+#     r'(?!.*(.).\5.\5)'  # This group
+#     r'[1-9]\d{5}'
+#     r'$', '101215'
+# ))
+
+def infix2postfix(expr):
+    #can get rid of spaces using .split()
+    precedence = {'*':2, '/':2, '+':1, '-':1, '(':0}
+    operators = '()*/+-'
+    stack = []
+    return_exp = ''
+
+    for index in range(len(expr)):
+        if expr[index] not in operators:
+            return_exp += expr[index]
+        elif expr[index] == '(':
+            stack.append('(')
+        elif expr[index] == ')':
+            while(True):
+                stack_val = stack.pop()
+                if stack_val == '(':
+                    break
+                else:
+                    return_exp += stack_val
+        else:
+            while(len(stack)>0 and precedence[stack[-1]] >= precedence[expr[index]]):
+                return_exp += stack.pop()
+            stack.append(expr[index])
+    while(len(stack)>0):
+        return_exp += stack.pop()
+
+    print(return_exp)
+    # return return_exp
+
+def infix2prefix(expr):
+    #can get rid of spaces using .split()
+    precedence = {'*':2, '/':2, '+':1, '-':1, ')':0}
+    operators = '()*/+-'
+    stack = []
+    return_exp = ''
+
+    for index in range(len(expr)-1,-1,-1):
+        if expr[index] not in operators:
+            return_exp += expr[index]
+        elif expr[index] == ')':
+            stack.append(')')
+        elif expr[index] == '(':
+            while(True):
+                stack_val = stack.pop()
+                if stack_val == ')':
+                    break
+                else:
+                    return_exp += stack_val
+        else:
+            while(len(stack)>0 and precedence[stack[-1]] > precedence[expr[index]]):
+                return_exp += stack.pop()
+            stack.append(expr[index])
+    while(len(stack)>0):
+        return_exp += stack.pop()
+
+    print(return_exp[::-1])
 
 def main():
     # maximize_it()
-    valid_postal_code()
+    # valid_postal_code()
+    # infix2postfix('A*(B+C)*D')
+    infix2postfix('(A+B)*C-(D-E)*(F+G)')
+    infix2prefix('(A+B)*C-(D-E)*(F+G)')
 
 if __name__ == "__main__":
     main()
