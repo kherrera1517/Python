@@ -127,6 +127,42 @@ def infix2prefix(expr):
 
     print(return_exp[::-1])
 
+#my slightly incorrect definition
+# def matrix_script():
+#     n, m = input().strip().split(' ')
+#     n, m = [int(n), int(m)]
+#     matrix = []
+#     matrix_i = 0
+#     for matrix_i in range(n):
+#         matrix_t = str(input().strip())
+#         matrix_t += ' '*(m-len(matrix_t))
+#         matrix.append(matrix_t)
+        
+#     ret_string = ''
+#     for col in range(m):
+#         for row in range(n):
+#             ret_string += matrix[row][col]
+            
+#     matches = re.findall(r'[A-Za-z0-9]+([\$#%!]+ *)[A-Za-z0-9]', ret_string)
+#     for match in matches:
+#         ret_string = ret_string.replace(match, ' ')
+
+#     print(ret_string)
+
+#improved
+def matrix_script():
+    n, m = input().strip().split(' ')
+    n, m = [int(n), int(m)]
+    matrix = []
+    for _ in range(n):
+        matrix.append(input())
+
+    ret_str = ""
+    for word in zip(*matrix):
+        ret_str += "".join(word)
+
+    print(re.sub(r'(?<=\w)([\W]+)(?=\w)', ' ', ret_str))
+
 def main():
     # maximize_it()
     # valid_postal_code()
