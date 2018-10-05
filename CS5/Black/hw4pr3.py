@@ -70,20 +70,42 @@ def quadrants(array):
     of the form [NW, NE, SW, SE] where each entry is the array 
     for that quadrant """
     # You'll write this code!
+    halfOuterArrLen = len(array)//2
+    halfInnerArrLen = len(array[0])//2
+
+    # NW = list(map(lambda x: array[x][:halfInnerArrLen], range(halfOuterArrLen)))
+    # NE = list(map(lambda x: array[x][halfInnerArrLen:], range(halfOuterArrLen)))
+    # SW = list(map(lambda x: array[x][:halfInnerArrLen], range(halfOuterArrLen, len(array))))
+    # SE = list(map(lambda x: array[x][halfInnerArrLen:], range(halfOuterArrLen, len(array))))
+
+    NW =[array[x][:halfInnerArrLen] for x in range(halfOuterArrLen)]
+    NE =[array[x][halfInnerArrLen:] for x in range(halfOuterArrLen)]
+    SW =[array[x][:halfInnerArrLen] for x in range(halfOuterArrLen, len(array))]
+    SE =[array[x][halfInnerArrLen:] for x in range(halfOuterArrLen, len(array))]
     return [NW, NE, SW, SE]
 
 def solidzero(array):
     """ Takes a 2D binary array as input and returns True if every bit is a 0 and False otherwise. """
     # You'll write this code.  One line suffices!
+    # return max(list(map(lambda x: max(x), array))) == 0
+    return max([max(x) for x in array]) == 0
 
 def solidone(array):
     """ Takes a 2D binary array as input and returns True if every bit is a 1 and False otherwise. """
     # You'll write this code.  One line suffices!
+    # return min(list(map(lambda x: min(x), array))) == 1
+    return min([min(x) for x in array]) == 1
 
 def makeQuadtree(array):
     """ Returns a quadtree representation of the array. """
     # You'll write this code
-    return quadtree
+    if solidzero(array):
+        return 0
+    elif solidone(array):
+        return 1
+    else:
+        # return list(map(lambda x: makeQuadtree(x), quadrants(array)))
+        return [makeQuadtree(x) for x in quadrants(array)]
 
 def solidArray(value, pixels):
     """ PROVIDED CODE. """
