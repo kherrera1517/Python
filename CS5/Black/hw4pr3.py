@@ -78,10 +78,15 @@ def quadrants(array):
     # SW = list(map(lambda x: array[x][:halfInnerArrLen], range(halfOuterArrLen, len(array))))
     # SE = list(map(lambda x: array[x][halfInnerArrLen:], range(halfOuterArrLen, len(array))))
 
-    NW =[array[x][:halfInnerArrLen] for x in range(halfOuterArrLen)]
-    NE =[array[x][halfInnerArrLen:] for x in range(halfOuterArrLen)]
-    SW =[array[x][:halfInnerArrLen] for x in range(halfOuterArrLen, len(array))]
-    SE =[array[x][halfInnerArrLen:] for x in range(halfOuterArrLen, len(array))]
+    # NW =[array[x][:halfInnerArrLen] for x in range(halfOuterArrLen)]
+    # NE =[array[x][halfInnerArrLen:] for x in range(halfOuterArrLen)]
+    # SW =[array[x][:halfInnerArrLen] for x in range(halfOuterArrLen, len(array))]
+    # SE =[array[x][halfInnerArrLen:] for x in range(halfOuterArrLen, len(array))]
+
+    NW =[x[:halfInnerArrLen] for x in array[:halfOuterArrLen]]
+    NE =[x[halfInnerArrLen:] for x in array[:halfOuterArrLen]]
+    SW =[x[:halfInnerArrLen] for x in array[halfOuterArrLen:]]
+    SE =[x[halfInnerArrLen:] for x in array[halfOuterArrLen:]]
     return [NW, NE, SW, SE]
 
 def solidzero(array):
@@ -114,27 +119,68 @@ def solidArray(value, pixels):
     return [[value]*pixels for row in range(pixels)]
 
 def makeArray(quadtree, dim):
-    """ Takes a quadree and dimension as input and
+    """ Takes a quadtree and dimension as input and
     returns the 2D array representation of the quadtree """
     # You'll write this code
-    return array
+    NW, NE, SW, SE = quadtree
+    
+    if type(NW) == int:
+        NW = solidArray(NW, dim//2)
+    else:
+        NW = makeArray(NW, dim//2)
+
+    if type(NE) == int:
+        NE = solidArray(NE, dim//2)
+    else:
+        NE = makeArray(NE, dim//2)
+
+    if type(SW) == int:
+        SW = solidArray(SW, dim//2)
+    else:
+        SW = makeArray(SW, dim//2)
+
+    if type(SE) == int:
+        SE = solidArray(SE, dim//2)
+    else:
+        SE = makeArray(SE, dim//2)
+
+    return list(map(lambda x, y: x+y, NW, NE)) + list(map(lambda a, b: a+b, SW, SE))
 
 def rotateRight(quadtree):
-    """ Takes a quadtuple as input and returns the quadtree that results when rotating that image
+    """ Takes a quadtree as input and returns the quadtree that results when rotating that image
     clockwise 90 degrees. """
     # You'll write this code.  Around four lines of code suffice
+    if type(quadtree) == int:
+        return quadtree
+    else:
+        NW, NE, SW, SE = quadtree
+        return [rotateRight(SW), rotateRight(NW), rotateRight(SE), rotateRight(NE)]
 
 def flipHorizontal(quadtree):
     """ Takes a quadtree as input and returns the quadtree that results when flipping the image
     about the horizontal axis of symmetry. """
     # You'll write this code.  Around four lines of code suffice
+    if type(quadtree) == int:
+        return quadtree
+    else:
+        NW, NE, SW, SE = quadtree
+        return [flipHorizontal(SW), flipHorizontal(SE), flipHorizontal(NW), flipHorizontal(NE)]
 
 def flipDiagonal(quadtree):
     """ Takes a quadtree as input and returns the quadtree that results when flipping the image
     about the diagonal line through the NE and SW corners of the image. """
     # You'll write this code.  Around four lines of code suffice
+    if type(quadtree) == int:
+        return quadtree
+    else:
+        NW, NE, SW, SE = quadtree
+        return [flipDiagonal(SE), flipDiagonal(NE), flipDiagonal(SW), flipDiagonal(NW)]
 
 def invert(quadtree):
     """ Takes a quadtree as input and returns the quadtree that results when flipping every white
     pixel to a black pixel and vice versa. """
     # You'll write this code.  Around four lines of code suffice
+    if type(quadtree) == int:
+        return (quadtree + 1) % 2
+    else:
+        return [invert(x) for x in quadtree]
