@@ -7,7 +7,7 @@ def dollarify(wordList, k):
     returnList = []
     ind = 0 #keeps track of the beginning of a sentence
     for i in range(len(wordList)):
-        if len(wordList[i]) != 1:
+        if wordList[i][-1] in PUNCTUATION:
             returnList += ['$']*k + wordList[ind:i+1]
             ind = i+1
     return returnList
@@ -33,12 +33,16 @@ def markov_model(wordList, k):
 def gen_from_model(mmodel, numwords):
     if mmodel == {} or numwords == 0:
         return
+
+    # print(mmodel)
     key_list = list(mmodel.keys())
     order = len(key_list[0])
     tempList = ['$']*order
     key = tuple(tempList)
-    print_string = random.choice(mmodel[key])
+    tempList += [random.choice(mmodel[key])]
+    print_string = str(tempList[-1])
     numwords -= 1
+
     while numwords > 0:
         print_string += ' '
         if print_string[-2] in PUNCTUATION:
@@ -46,12 +50,24 @@ def gen_from_model(mmodel, numwords):
             tempList += ['$']*order
         else:
             key = tuple(tempList[-order:])
-        # print('key is now ', key)
-        print_string += random.choice(mmodel[key])
-        tempList += [print_string[-1]]
+        print('key is now ', key)
+        tempList += [random.choice(mmodel[key])]
+        print_string += tempList[-1]
         numwords -= 1
+        print(print_string)
+        print(tempList)
 
     print(print_string)
 
 def markov(fileName, k, length):
-    return
+    file1 = open(fileName)
+    inputList = file1.readlines()
+    file1.close()
+    cleanList = list(map(lambda x: x.replace("\n", " "), inputList))
+    # print(cleanList)
+    cleanString = "".join(cleanList)
+    finalList = cleanString.split()
+    # print(finalList)
+    model = markov_model(finalList, k)
+    # print(model.keys())
+    gen_from_model(model, length)

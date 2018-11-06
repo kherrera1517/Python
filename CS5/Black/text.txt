@@ -1,0 +1,4 @@
+This is a sample text file. This will help us determine the behavior of certain input and output functions.
+This is the start of the second line of text.
+If we add random stuff here at the start of a new file then we might be able to obtain behavior that is not as predictable as before.
+To be able to determine random behavior effectively is an impossiblity. This is not used to determine anything but we can be certain that some behavior may be able to be predicted.
