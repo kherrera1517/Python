@@ -32,17 +32,47 @@ def rps():
         
     else:
         print('Welcome,', name)
+        time.sleep(2)
         print('Your weapons of choice are rock, paper or scissors!')
-        your_weapon = input('Choose your weapon! It will not influence my choice, I promise. >:) ')
-        your_weapon = your_weapon.lower()
-        print(name, '(you) chose', your_weapon)
-        # Students are not introduced to while loops in this assignment!
-        while your_weapon not in choices:
-            your_weapon = input('Please choose a valid weapon. D:< ')
-            your_weapon = your_weapon.lower()
-            print(name, '(you) chose', your_weapon)
+        time.sleep(2)
+        your_choice = input('Choose your weapon! It will not influence my choice, I promise. >:) ')
+        your_choice = your_choice.lower()
+        print(name, '(you) chose', your_choice)
+        time.sleep(2)
         
         bot_choice = random.choice(choices)
         print('By the way, I choose', bot_choice)
+        time.sleep(2)
 
-        if your_weapon == 'rock':
+        if your_choice == 'rock':
+            if bot_choice == 'rock':
+                print("A tie?! Let's go again!")
+
+            elif bot_choice == 'paper':
+                print("Ha! I win. >:P")
+
+            else:
+                print("That was a fluke. Rematch me!")
+
+        elif your_choice == 'paper':
+            if bot_choice == 'paper':
+                print("A tie?! Let's go again!")
+
+            elif bot_choice == 'scissors':
+                print("Ha! I win. >:P")
+
+            else:
+                print("That was a fluke. Rematch me!")
+
+        elif your_choice == 'scissors':
+            if bot_choice == 'scissors':
+                print("A tie?! Let's go again!")
+
+            elif bot_choice == 'rock':
+                print("Ha! I win. >:P")
+
+            else:
+                print("That was a fluke. Rematch me!")
+
+        else:
+            print("That's not a valid choice! Try again next time!")
