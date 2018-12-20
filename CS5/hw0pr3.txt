@@ -1,0 +1,25 @@
+# These lines are comments.
+
+# Remember that rules are formatted as
+# State Surroundings -> Move NewState
+
+# Picobot starts in state 0.
+
+# Here, state 0 and state 1 orient picobot to 
+# the NE-corner of the empty room.
+
+0 x*** -> N 0   # if there's nothing to the N, go N
+0 N*** -> X 1   # if N is blocked, switch to state 1
+
+1 *x** -> E 1   # we begin to go E to our corner
+1 NE** -> X 2   # if we hit NE-corner, switch to state 2
+
+# Here, state 2 and 3 loop picobot up and down, moving W
+# one spot every time it's done with a column until the
+# entire room has been explored
+
+2 ***x -> S 2   # if there's nothing to the S, go S
+2 **xS -> W 3   # if at bottom, move W and go to state 3
+
+3 x*** -> N 3   # if there's nothing to the N, go N
+3 N*x* -> W 2   # if at top, move W and go to state 2
