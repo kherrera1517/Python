@@ -9,7 +9,7 @@ print("Zero is", 4+4-4-4.0)                         #prints 0
 print("One is", 4%4+4/4)                            #prints 1
 print("Two is", 4/4+4/4)                            #prints 2
 print("Three is", (sqrt(4) + sqrt(4))/4 + sqrt(4))  #prints 3
-print("Four is", (4%4)%4+4.0)                         #prints 4
+print("Four is", (4%4)%4+4.0)                       #prints 4
 print("Five is", sqrt(4) + sqrt(4) + 4/4)           #prints 5
 print("Six is", 4%4+4+sqrt(4))                      #prints 6
 print("Seven is", 4+4/4+sqrt(4))                    #prints 7
@@ -21,7 +21,7 @@ print("Twelve is", (sqrt(4) + 4/4)*4)               #prints 12
 print("Thirteen is", 44/4 + sqrt(4))                #prints 13
 print("Fourteen is", (4*4) - (4/sqrt(4)))           #prints 14
 print("Fifteen is", 4*4 - 4/4)                      #prints 15
-print("Sixteen is", 4%4+4*4.0)                        #prints 16
+print("Sixteen is", 4%4+4*4.0)                      #prints 16
 print("Seventeen is", 4*4 + 4/4)                    #prints 17
 print("Eighteen is", 44/sqrt(4)-4)                  #prints 18
 print("Nineteen is", factorial(4)-(4+4/4))          #prints 19
