@@ -1,6 +1,6 @@
 # coding: utf-8
 # name: Kevin Herrera 11/8/2018
-# hw0pr2.py
+# rps.py
 #
 # Own implementation of rps() game using concepts not introduced this early in 
 # the course.
