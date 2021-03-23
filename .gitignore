@@ -9,6 +9,9 @@ other_to_test/*
 # ignore dir containing local output
 output/*
 
+# ignore .vscode 
+.vscode/
+
 # Below: Python-specific .gitignore treats from Github
 
 
